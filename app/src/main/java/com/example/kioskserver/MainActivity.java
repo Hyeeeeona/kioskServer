@@ -90,22 +90,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        // 메뉴버튼이 처음 눌러졌을 때 실행되는 콜백메서드
-        // 메뉴버튼을 눌렀을 때 보여줄 menu 에 대해서 정의
         getMenuInflater().inflate(R.menu.mainmenu, menu);
-        Log.d("test", "onCreateOptionsMenu - 최초 메뉴키를 눌렀을 때 호출됨");
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // 메뉴의 항목을 선택(클릭)했을 때 호출되는 콜백메서드
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        Log.d("test", "onOptionsItemSelected - 메뉴항목을 클릭했을 때 호출됨");
-
         int id = item.getItemId();
 
         switch(id) {
@@ -122,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_logout:
-                new AlertDialog.Builder(this/* 해당 액티비티를 가르킴 */)
+                new AlertDialog.Builder(this)
                         .setTitle("로그아웃").setMessage("로그아웃 하시겠습니까?")
                         .setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
