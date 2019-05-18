@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void singIn(String email, String password) {
 
+        if (!validateForm(email, password)) {
+            return;
+        }
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -76,18 +80,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    private boolean validateForm(String email, String password) {
+        boolean valid = true;
+
+        if (TextUtils.isEmpty(email)) {
+            EtId.setError("Required.");
+            valid = false;
+        } else {
+            EtId.setError(null);
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            EtPw.setError("Required.");
+            valid = false;
+        } else {
+            EtPw.setError(null);
+        }
+
+        return valid;
+    }
+
     @Override
     public void onClick(View v) {
-        String email = EtId.getText().toString();
-        String password = EtPw.getText().toString();
-
-        if (email.equals("")) {
-            //TODO: 에러처리
-            return;
-        } else if (password.equals("")) {
-            //TODO: 에러처리
-        }
-        singIn(email, password);
+        singIn(EtId.getText().toString(), EtPw.getText().toString());
     }
 
 }
