@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ManageMenuSettingActivity"
+            android:label="@string/title_manage_setting_menu"/>
+        <activity
+            android:name=".ManageMenuActivity"
+            android:label="@string/title_manage_menu"/>
+        <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".MainActivity">

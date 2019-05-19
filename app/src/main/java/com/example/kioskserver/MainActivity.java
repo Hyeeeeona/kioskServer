@@ -104,8 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_set_menu:
-                Toast.makeText(getApplicationContext(), "메뉴 설정",
-                        Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, ManageMenuActivity.class));
                 return true;
             case R.id.menu_set_shop_info:
                 Toast.makeText(getApplicationContext(), "매장 정보",

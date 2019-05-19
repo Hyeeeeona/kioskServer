@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_wait_confirm"
-        android:title="주문대기" />
+        android:title="접수대기" />
 
     <item
         android:id="@+id/navigation_accept"
-        android:title="준비중" />
+        android:title="메뉴준비중" />
 </menu>
