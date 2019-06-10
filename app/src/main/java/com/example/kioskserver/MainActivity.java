@@ -23,6 +23,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.example.kioskserver.ShopInfoDataFileIO;
+
+import org.json.JSONObject;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
@@ -31,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AcceptFragment acceptFragment;
     private WaitConfirmFragment waitConfirmFragment;
     Button btnLogout;
+    private NetworkService networkService;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -68,6 +79,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.framelayout, waitConfirmFragment).commitAllowingStateLoss();
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        ApplicationController application = ApplicationController.getInstance();
+        application.buildNetworkService("10.0.2.2", 8000);
+        networkService = ApplicationController.getInstance().getNetworkService();
     }
 
     @Override
@@ -80,6 +95,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             finish();
         } else {
             Toast.makeText(MainActivity.this, "현재 로그인된 사용자 : " +currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+            if (!ShopInfoDataFileIO.isExistShopInfoData(getApplicationContext())) {
+                Call<List<ShopInfo>> getCall = networkService.get_shopinfo();
+                getCall.enqueue(new Callback<List<ShopInfo>>() {
+                    @Override
+                    public void onFailure(Call<List<ShopInfo>> call, Throwable t) {
+                        Log.d("debugging", "Fail Message : " + t.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(Call<List<ShopInfo>> call, Response<List<ShopInfo>> response) {
+                        Boolean isExist = false;
+                        if (response.isSuccessful()) {
+                            List<ShopInfo> shopinfoList = response.body();
+                            for (ShopInfo shopinfo : shopinfoList ) {
+                                if (shopinfo.getUid().equals(currentUser.getUid())) {
+                                    Log.d("debugging", "찾았당");
+                                    JSONObject jsonObject = ShopInfoDataFileIO.makeShopInfoDataJson(shopinfo);
+                                    ShopInfoDataFileIO.saveShopInfoDataJson(getApplicationContext(), jsonObject);
+                                    isExist = true;
+                                    break;
+                                }
+                            }
+                        } else {
+                            Log.d("debugging", "Error Message : " + response.errorBody());
+                        }
+                        if (!isExist) {
+                            Toast.makeText(MainActivity.this, "매장 설정 필요", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                //uid query
+                //  if exist
+                //    save to internal storage
+                //  else
+                //    need to set shop info
+
+            }
         }
     }
 
@@ -107,8 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, ManageMenuActivity.class));
                 return true;
             case R.id.menu_set_shop_info:
-                Toast.makeText(getApplicationContext(), "매장 정보",
-                        Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, ShopInfoSettingActivity.class));
                 return true;
             case R.id.menu_logout:
                 new AlertDialog.Builder(this)
