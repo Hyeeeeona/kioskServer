@@ -25,6 +25,9 @@ public class ApplicationController extends Application {
     public void buildNetworkService(String ip, int port) {
         synchronized (ApplicationController.class) {
             if (networkService == null) {
+
+
+
                 baseUrl = String.format("http://%s:%d/", ip, port);
                 Log.d(TAG, baseUrl);
 
