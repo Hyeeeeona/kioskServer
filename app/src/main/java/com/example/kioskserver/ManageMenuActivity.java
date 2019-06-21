@@ -35,6 +35,7 @@ public class ManageMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ManageMenuActivity.this, ManageMenuSettingActivity.class));
+                finish();
             }
         });
 
