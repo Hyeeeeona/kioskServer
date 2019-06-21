@@ -13,7 +13,7 @@ public class ListViewMenuItem {
         descStr = desc;
     }
     public void setPrice(String price) {
-        priceStr = price;
+        priceStr = price + "원";
     }
 
     public String getTitle() {

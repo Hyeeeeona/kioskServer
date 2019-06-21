@@ -17,6 +17,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="50dp"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/et_shop_name"
             app:layout_constraintDimensionRatio="0.8:1"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -30,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.8"
-                android:src="@drawable/img3" />
+                android:src="@drawable/img1" />
 
             <Button
                 android:id="@+id/btn_shop_image"
@@ -59,12 +60,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintBottom_toTopOf="@+id/et_shop_tel"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintLeft_toRightOf="@id/tv_shop_name"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear_photo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_shop_tel"
@@ -127,6 +128,7 @@
             app:layout_constraintRight_toRightOf="@id/et_shop_name" />
 
         <CheckBox
+            android:visibility="gone"
             android:id="@+id/cb_business_hours_allday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -322,7 +324,7 @@
             app:layout_constraintBottom_toTopOf="@+id/btn_apply"
             app:layout_constraintLeft_toLeftOf="@id/et_shop_name"
             app:layout_constraintRight_toRightOf="@id/et_shop_name"
-            app:layout_constraintTop_toBottomOf="@id/linear_personal_day" />
+            app:layout_constraintTop_toBottomOf="@id/linear_personal_day"/>
         <Button
             android:id="@+id/btn_apply"
             android:layout_width="wrap_content"

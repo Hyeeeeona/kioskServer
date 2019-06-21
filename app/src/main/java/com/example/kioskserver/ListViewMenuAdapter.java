@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class ListViewMenuAdapter extends BaseAdapter {
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewMenuItem listViewMenuItem = listViewItemMenuList.get(position);
 
+
         // 아이템 내 각 위젯에 데이터 반영
         titleTextView.setText(listViewMenuItem.getTitle());
         descTextView.setText(listViewMenuItem.getDesc());
@@ -66,12 +68,12 @@ public class ListViewMenuAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String title, String desc, String price) {
+    public void addItem(String title, String desc, int price) {
         ListViewMenuItem item = new ListViewMenuItem();
 
         item.setTitle(title);
         item.setDesc(desc);
-        item.setPrice(price);
+        item.setPrice(Integer.toString(price));
 
         listViewItemMenuList.add(item);
     }

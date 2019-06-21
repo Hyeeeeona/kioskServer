@@ -11,6 +11,7 @@
         tools:context=".ManageMenuSettingActivity">
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/linear_photo"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -112,6 +113,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_menu_price" />
 
         <CheckBox
+            android:visibility="gone"
             android:id="@+id/cb_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,6 +124,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_menu_option" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_unit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -136,6 +139,7 @@
             app:layout_constraintTop_toBottomOf="@id/cb_size" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_unit_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -147,6 +151,7 @@
             app:layout_constraintRight_toLeftOf="@+id/tv_won_1" />
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/et_size_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -159,6 +164,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_unit" />
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/et_price_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -169,6 +175,7 @@
             app:layout_constraintRight_toLeftOf="@+id/tv_won_1" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_won_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -180,6 +187,8 @@
 
 
         <EditText
+            android:visibility="gone"
+
             android:id="@+id/et_size_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -192,6 +201,8 @@
             app:layout_constraintTop_toBottomOf="@id/et_size_1" />
 
         <EditText
+            android:visibility="gone"
+
             android:id="@+id/et_price_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -202,6 +213,8 @@
             app:layout_constraintRight_toLeftOf="@+id/tv_won_2" />
 
         <TextView
+            android:visibility="gone"
+
             android:id="@+id/tv_won_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -212,6 +225,7 @@
             app:layout_constraintRight_toRightOf="parent" />
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/et_size_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -224,6 +238,7 @@
             app:layout_constraintTop_toBottomOf="@id/et_size_2" />
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/et_price_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -234,6 +249,7 @@
             app:layout_constraintRight_toLeftOf="@+id/tv_won_3" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_won_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

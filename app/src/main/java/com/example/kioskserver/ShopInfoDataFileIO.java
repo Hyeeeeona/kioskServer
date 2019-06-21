@@ -33,6 +33,19 @@ public class ShopInfoDataFileIO {
         return shopInfoDataJsonObject;
     }
 
+    public static int getShopId(Context context) {
+        JSONObject jsonObject = readShopInfoDataJson(context);
+        int id = -1;
+        if (jsonObject != null) {
+            try {
+                id = Integer.parseInt(jsonObject.getString("shop_id"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return id;
+    }
+
     public static void saveShopInfoDataJson(Context context, JSONObject jsonObject){
 
         FileOutputStream outputStream;
@@ -43,6 +56,15 @@ public class ShopInfoDataFileIO {
         }catch( Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static void deleteShopInfoDataJson(Context context) {
+        try{
+            context.deleteFile(filename);
+        }catch( Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public static boolean isExistShopInfoData(Context context) {

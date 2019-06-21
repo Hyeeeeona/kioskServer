@@ -2,10 +2,12 @@ package com.example.kioskserver;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,6 +44,9 @@ public class ListViewOrderAdapter extends BaseAdapter {
         TextView tvOrderTime = (TextView) convertView.findViewById(R.id.item_order_time) ;
         TextView tvOderData = (TextView) convertView.findViewById(R.id.item_order_data) ;
 
+        Button btn = (Button)convertView.findViewById(R.id.item_order_btn);
+        btn.setFocusable(false);
+
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewOrderItem listViewOrderItem = listViewItemOrderList.get(position);
 
@@ -68,6 +73,15 @@ public class ListViewOrderAdapter extends BaseAdapter {
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
     public void addItem(String num, String time, String desc) {
         ListViewOrderItem item = new ListViewOrderItem();
+        String prefix = "주문번호 : ";
+
+        for (ListViewOrderItem listViewOrderItem : listViewItemOrderList) {
+            String orderNoPrefix = listViewOrderItem.getOrderNo();
+            String orderNo = orderNoPrefix.substring(prefix.length());
+
+            if (orderNo.equals(num))
+                return;
+        }
 
         item.setOrderNo(num);
         item.setOrderTime(time);

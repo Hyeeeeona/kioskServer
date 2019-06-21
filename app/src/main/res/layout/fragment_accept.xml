@@ -3,12 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AcceptFragment">
+    tools:context=".AcceptFragment"
+    android:backgroundTint="#FAFAFA">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/listview_accept"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="accept" />
+        android:dividerHeight="10.0sp"
+        android:divider="#FAFAFA">
+    </ListView>
+
 
 </FrameLayout>

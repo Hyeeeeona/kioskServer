@@ -70,6 +70,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
+        currentUser = mAuth.getCurrentUser();
+        if(currentUser == null) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+            return;
+        }
+
+        Toast.makeText(MainActivity.this, "현재 로그인된 사용자 : " +currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+
+        ApplicationController application = ApplicationController.getInstance();
+        application.buildNetworkService("10.0.2.2", 8000);
+        networkService = ApplicationController.getInstance().getNetworkService();
+        ShopInfoDataFileIO.deleteShopInfoDataJson(getApplicationContext());
+        if (!ShopInfoDataFileIO.isExistShopInfoData(getApplicationContext())) {
+            Call<List<ShopInfo>> getCall = networkService.get_shopinfo();
+            getCall.enqueue(new Callback<List<ShopInfo>>() {
+                @Override
+                public void onFailure(Call<List<ShopInfo>> call, Throwable t) {
+                    Log.d("debugging", "Fail Message : " + t.getMessage());
+                }
+
+                @Override
+                public void onResponse(Call<List<ShopInfo>> call, Response<List<ShopInfo>> response) {
+                    Boolean isExist = false;
+                    if (response.isSuccessful()) {
+                        List<ShopInfo> shopinfoList = response.body();
+                        for (ShopInfo shopinfo : shopinfoList ) {
+                            if (shopinfo.getUid().equals(currentUser.getUid())) {
+                                Log.d("debugging", "찾았당");
+                                JSONObject jsonObject = ShopInfoDataFileIO.makeShopInfoDataJson(shopinfo);
+                                ShopInfoDataFileIO.saveShopInfoDataJson(getApplicationContext(), jsonObject);
+                                isExist = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        Log.d("debugging", "Error Message : " + response.errorBody());
+                    }
+                    if (!isExist) {
+                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage("매장 정보가 없습니다. 매장 정보 설정 페이지로 이동합니다.");
+                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(MainActivity.this, ShopInfoSettingActivity.class);
+                                startActivity(intent);
+
+                            }
+                        });
+                        android.app.AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                        //TODO intent 로 ID 보내기
+                    }
+                }
+            });
+        }
+
         fragmentManager = getSupportFragmentManager();
         acceptFragment = new AcceptFragment();
         waitConfirmFragment = new WaitConfirmFragment();
@@ -80,61 +139,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.replace(R.id.framelayout, waitConfirmFragment).commitAllowingStateLoss();
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        ApplicationController application = ApplicationController.getInstance();
-        application.buildNetworkService("10.0.2.2", 8000);
-        networkService = ApplicationController.getInstance().getNetworkService();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        currentUser = mAuth.getCurrentUser();
-        if(currentUser == null){
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            finish();
-        } else {
-            Toast.makeText(MainActivity.this, "현재 로그인된 사용자 : " +currentUser.getEmail(), Toast.LENGTH_SHORT).show();
-            if (!ShopInfoDataFileIO.isExistShopInfoData(getApplicationContext())) {
-                Call<List<ShopInfo>> getCall = networkService.get_shopinfo();
-                getCall.enqueue(new Callback<List<ShopInfo>>() {
-                    @Override
-                    public void onFailure(Call<List<ShopInfo>> call, Throwable t) {
-                        Log.d("debugging", "Fail Message : " + t.getMessage());
-                    }
-
-                    @Override
-                    public void onResponse(Call<List<ShopInfo>> call, Response<List<ShopInfo>> response) {
-                        Boolean isExist = false;
-                        if (response.isSuccessful()) {
-                            List<ShopInfo> shopinfoList = response.body();
-                            for (ShopInfo shopinfo : shopinfoList ) {
-                                if (shopinfo.getUid().equals(currentUser.getUid())) {
-                                    Log.d("debugging", "찾았당");
-                                    JSONObject jsonObject = ShopInfoDataFileIO.makeShopInfoDataJson(shopinfo);
-                                    ShopInfoDataFileIO.saveShopInfoDataJson(getApplicationContext(), jsonObject);
-                                    isExist = true;
-                                    break;
-                                }
-                            }
-                        } else {
-                            Log.d("debugging", "Error Message : " + response.errorBody());
-                        }
-                        if (!isExist) {
-                            Toast.makeText(MainActivity.this, "매장 설정 필요", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-                //uid query
-                //  if exist
-                //    save to internal storage
-                //  else
-                //    need to set shop info
-
-            }
-        }
-    }
 
     @Override
     public void onClick(View v) {
@@ -152,10 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         switch(id) {
-            case R.id.menu_shop_state:
-                Toast.makeText(getApplicationContext(), "영업 상태",
-                        Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.menu_set_menu:
                 startActivity(new Intent(MainActivity.this, ManageMenuActivity.class));
                 return true;
@@ -183,4 +185,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
