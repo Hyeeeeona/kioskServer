@@ -82,7 +82,6 @@
             android:id="@+id/et_shop_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:layout_marginTop="20dp"
             app:layout_constraintBottom_toTopOf="@+id/et_shop_tel"
             app:layout_constraintLeft_toLeftOf="@id/et_shop_name"
