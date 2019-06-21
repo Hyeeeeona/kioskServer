@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -298,9 +299,8 @@ public class ShopInfoSettingActivity extends AppCompatActivity {
                     }
                 });
             }
-
+            startActivity(new Intent(getApplicationContext(), ShopInfoSettingActivity.class));
             finish();
-            startActivity(getIntent());
         }
     };
 }
