@@ -26,6 +26,8 @@ public class ShopInfoDataFileIO {
             shopInfoDataJsonObject.put("shop_businesshours", shopInfo.getBusinessHours());
             shopInfoDataJsonObject.put("shop_personalday", shopInfo.getPersonalDay());
             shopInfoDataJsonObject.put("shop_introduction", shopInfo.getIntroduction());
+            shopInfoDataJsonObject.put("shop_address", shopInfo.getShop_address());
+
 
         }catch (JSONException e){
             e.printStackTrace();

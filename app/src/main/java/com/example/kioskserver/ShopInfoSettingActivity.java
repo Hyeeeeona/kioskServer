@@ -29,7 +29,7 @@ import retrofit2.Response;
 
 public class ShopInfoSettingActivity extends AppCompatActivity {
 
-    EditText etShopName, etShopTel, etIntroduction;
+    EditText etShopName, etShopTel, etIntroduction, etShopAddress;
     Button btnShopBusinessHoursOpen, btnShopBusinessHoursClose;
     private NetworkService networkService;
     private FirebaseAuth mAuth;
@@ -49,6 +49,7 @@ public class ShopInfoSettingActivity extends AppCompatActivity {
         etShopName = (EditText) findViewById(R.id.et_shop_name);
         etShopTel = (EditText) findViewById(R.id.et_shop_tel);
         etIntroduction = (EditText) findViewById(R.id.et_introduction);
+        etShopAddress = (EditText)findViewById(R.id.et_shop_address);
 
         btnShopBusinessHoursOpen = (Button) findViewById(R.id.btn_business_hours_open);
         btnShopBusinessHoursClose = (Button) findViewById(R.id.btn_business_hours_close);
@@ -87,6 +88,8 @@ public class ShopInfoSettingActivity extends AppCompatActivity {
                 etShopTel.setText(jsonObject.getString("shop_tel"));
                 etIntroduction.setText(jsonObject.getString("shop_introduction"));
                 String businessHours = jsonObject.getString("shop_businesshours");
+                etShopAddress.setText(jsonObject.getString("shop_address"));
+
                 if (businessHours.equals("24시간")) {
                     cbBusinessHoursAllday.setChecked(true);
                     btnShopBusinessHoursOpen.setEnabled(false);
@@ -230,6 +233,7 @@ public class ShopInfoSettingActivity extends AppCompatActivity {
             shopInfo.setShopId(shopId);
             shopInfo.setShopName(etShopName.getText().toString());
             shopInfo.setShopTel(etShopTel.getText().toString());
+            shopInfo.setShop_address(etShopAddress.getText().toString());
             if (cbBusinessHoursAllday.isChecked()) {
                 shopInfo.setBusinessHours("24시간");
             } else {
@@ -297,7 +301,6 @@ public class ShopInfoSettingActivity extends AppCompatActivity {
 
             finish();
             startActivity(getIntent());
-
         }
     };
 }

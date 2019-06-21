@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -42,13 +43,17 @@ public class WaitConfirmFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().setTitle("접수대기");
+
+    }
+
     public void startTimer() {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 //반복실행할 구문
-                //TODO: DB 쿼리날려서 status 확인.. 후 addItem 으로 추가.
-                //TODO: 하.. 할거많다..
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

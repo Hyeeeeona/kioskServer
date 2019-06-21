@@ -7,10 +7,12 @@ public class ShopInfo {
     private String shop_tel;
     private String business_hours;
     private String personal_day;
+    private String shop_address;
+
 
     public ShopInfo() {
     }
-    public ShopInfo(String uid, int shop_id, String shop_name, String shop_tel, String business_hours, String personal_day, String introduction) {
+    public ShopInfo(String uid, int shop_id, String shop_name, String shop_tel, String business_hours, String personal_day, String introduction, String shop_address) {
         this.uid = uid;
         this.shop_id = shop_id;
         this.shop_name = shop_name;
@@ -18,6 +20,7 @@ public class ShopInfo {
         this.business_hours = business_hours;
         this.personal_day = personal_day;
         this.introduction = introduction;
+        this.shop_address = shop_address;
     }
 
     public String getUid() {
@@ -74,6 +77,14 @@ public class ShopInfo {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public String getShop_address() {
+        return shop_address;
+    }
+
+    public void setShop_address(String shop_address) {
+        this.shop_address = shop_address;
     }
 
     private String introduction;

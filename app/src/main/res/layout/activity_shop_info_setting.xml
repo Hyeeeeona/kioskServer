@@ -61,12 +61,33 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
             android:layout_marginTop="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/et_shop_tel"
+            app:layout_constraintBottom_toTopOf="@+id/et_shop_address"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintLeft_toRightOf="@id/tv_shop_name"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tv_shop_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="매장 주소"
+            android:textAlignment="textEnd"
+            app:layout_constraintBaseline_toBaselineOf="@id/et_shop_address"
+            app:layout_constraintEnd_toEndOf="@id/tv_shop_name"
+            app:layout_constraintStart_toStartOf="@id/tv_shop_name" />
+
+
+        <EditText
+            android:id="@+id/et_shop_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/et_shop_tel"
+            app:layout_constraintLeft_toLeftOf="@id/et_shop_name"
+            app:layout_constraintRight_toRightOf="@id/et_shop_name"
+            app:layout_constraintTop_toBottomOf="@id/et_shop_name" />
         <TextView
             android:id="@+id/tv_shop_tel"
             android:layout_width="0dp"
@@ -77,6 +98,7 @@
             app:layout_constraintEnd_toEndOf="@id/tv_shop_name"
             app:layout_constraintStart_toStartOf="@id/tv_shop_name" />
 
+
         <EditText
             android:id="@+id/et_shop_tel"
             android:layout_width="0dp"
@@ -86,7 +108,7 @@
             app:layout_constraintBottom_toTopOf="@+id/btn_business_hours_open"
             app:layout_constraintLeft_toLeftOf="@id/et_shop_name"
             app:layout_constraintRight_toRightOf="@id/et_shop_name"
-            app:layout_constraintTop_toBottomOf="@id/et_shop_name" />
+            app:layout_constraintTop_toBottomOf="@id/et_shop_address" />
 
         <TextView
             android:id="@+id/tv_business_hours"
