@@ -63,6 +63,7 @@ public class ManageMenuActivity extends AppCompatActivity {
                     }
                 }
                 startActivity(intent);
+                finish();
 
             }
         });

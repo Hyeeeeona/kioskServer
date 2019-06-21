@@ -85,8 +85,6 @@ public class ManageMenuSettingActivity extends AppCompatActivity implements View
         btn_menu_image.setOnClickListener(this);
         btn_apply.setOnClickListener(this);
 
-        Log.d("hyeona", "왔나? : " +shop_id +", " +menu_id);
-
         if (shop_id != 0 && menu_id != 0) {
             Call<List<ShopMenu>> getCall = networkService.get_pk_shopmenu(shop_id);
 
@@ -141,6 +139,7 @@ public class ManageMenuSettingActivity extends AppCompatActivity implements View
             i.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(i, REQ_CODE_PICK_PICTURE);
         } else if (id == R.id.btn_cancel) {
+            startActivity(new Intent(ManageMenuSettingActivity.this, ManageMenuActivity.class));
             finish();
         } else if (id == R.id.btn_apply) {
             ShopMenu shopMenu;
